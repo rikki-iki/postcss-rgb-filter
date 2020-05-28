@@ -37,3 +37,10 @@ postcss([ require('postcss-rgb-filter') ])
 
 See [PostCSS](https://github.com/postcss/postcss) docs for examples for your environment.
 
+If you use the [css variables](https://www.npmjs.com/package/postcss-css-variables) plugin and want to use a variable 
+for the color value, make sure it also runs before this plugin.
+
+If you prefer writing colours in hex format simple add a plugin like [postcss-rgb-plz](https://www.npmjs.com/package/postcss-rgb-plz)
+and make sure it runs before this plugin.
+
+If you use an autoprefixer plugin make sure it runs after this plugin, otherwise the prefixed value won't be converted.
