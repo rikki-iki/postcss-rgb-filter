@@ -1,0 +1,33 @@
+{
+  "name": "postcss-rgb-filter",
+  "version": "1.0.0",
+  "description": "PostCSS plugin to convert rgb colors to css filters",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "color",
+    "rgb",
+    "filter",
+    "postprocessor"
+  ],
+  "author": "Rikki Bochow",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rikki-iki/postcss-rgb-filter"
+  },
+  "bugs": {
+    "url": "https://github.com/rikki-iki/postcss-rgb-filter/issues"
+  },
+  "homepage": "https://github.com/rikki-iki/postcss-rgb-filter",
+  "dependencies": {
+    "postcss": "^5.0.0"
+  },
+  "devDependencies": {
+    "ava": "^1.4.1"
+  },
+  "scripts": {
+    "test": "ava"
+  }
+}
