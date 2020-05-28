@@ -8,6 +8,9 @@ This PostCSS plugin just wraps that code.
 
 Created to help [colour SVG background images](https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/).
 
+For this code to work well the starting color of the icon SVG needs to be black. Also note filters are not supported 
+in IE11, so the black icon will be the fallback.
+
 ```css
 .foo {
   filter: rgb(0, 92, 250);
