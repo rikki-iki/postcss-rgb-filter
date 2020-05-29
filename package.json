@@ -1,6 +1,6 @@
 {
   "name": "postcss-rgb-filter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PostCSS plugin to convert rgb colors to css filters",
   "keywords": [
     "postcss",

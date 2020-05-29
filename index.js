@@ -2,7 +2,8 @@ var postcss = require('postcss');
 
 module.exports = postcss.plugin('postcss-rgb-filter', function (opts) {
   opts = opts || {};
-  var reg = /rgb\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+)?\)/g;
+  var rgbReg = /rgb\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+)?\)/g;
+  var varReg = /var\(--(.+)\)/g;
 
   return function (css, result) {
     css.walkDecls(declaration => {
@@ -14,7 +15,7 @@ module.exports = postcss.plugin('postcss-rgb-filter', function (opts) {
       }
 
       // Make sure value is in rgb() format.
-      var rgbValues = value.match(reg);
+      var rgbValues = value.match(rgbReg);
 
       // Convert rgb() values into a valid css filter.
       if(rgbValues && rgbValues.length > 0) {
@@ -24,6 +25,14 @@ module.exports = postcss.plugin('postcss-rgb-filter', function (opts) {
           newVal = rgbToFilter(rgb);
         });
         declaration.value = newVal;
+      }
+
+      // Remove any preserved variables.
+      var varValues = value.match(varReg);
+      if(varValues && varValues.length > 0) {
+        varValues.forEach(function(varVal) {
+          declaration.remove();
+        });
       }
     });
   };
