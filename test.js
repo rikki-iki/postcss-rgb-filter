@@ -16,7 +16,7 @@ function run(t, input, output, opts = {}){
 test('convert filter rgb() to acceptable values', t => {
   return run(
     t,
-    'a { filter: rgb(0, 92, 250) }',
-    'a { filter: invert(25%) sepia(96%) saturate(4236%) hue-rotate(214deg) brightness(97%) contrast(107%) }'
+    'a { filter: rgb(0, 0, 0) }',
+    'a { filter: invert(0%) sepia(100%) saturate(7461%) hue-rotate(347deg) brightness(105%) contrast(111%) }'
   );
 });
