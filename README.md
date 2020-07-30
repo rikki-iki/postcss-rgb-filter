@@ -37,8 +37,20 @@ postcss([ require('postcss-rgb-filter') ])
 
 See [PostCSS](https://github.com/postcss/postcss) docs for examples for your environment.
 
-If you use the [css variables](https://www.npmjs.com/package/postcss-css-variables) plugin and want to use a variable 
-for the color value, make sure it also runs before this plugin.
+## Options
+
+### `cssvars` (default: `false`)
+
+Setting to `true` allows you to use the [css variables](https://www.npmjs.com/package/postcss-css-variables) plugin 
+and use a variable for the color value.
+
+### `loss` (default: `10`)
+
+This plugin does some very heavy calculations, this setting allow you to improve the accuracy of converted colour,
+by reducing the loss. A loss of `0` means a perfect colour conversion, however this can significantly slow down the time
+it takes postcss to process your files, especially when used a lot.
+
+## Plugin order
 
 If you prefer writing colours in hex format simple add a plugin like [postcss-rgb-plz](https://www.npmjs.com/package/postcss-rgb-plz)
 and make sure it runs before this plugin.

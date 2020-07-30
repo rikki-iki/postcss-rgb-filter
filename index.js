@@ -1,7 +1,10 @@
 var postcss = require('postcss');
 
 module.exports = postcss.plugin('postcss-rgb-filter', function (opts) {
-  opts = opts || {};
+  opts = opts || {
+    loss: 10,
+    cssvars: false
+  };
   var rgbReg = /rgb\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+)?\)/g;
   var varReg = /var\(--(.+)\)/g;
 
@@ -22,17 +25,19 @@ module.exports = postcss.plugin('postcss-rgb-filter', function (opts) {
         var newVal = value;
 
         rgbValues.forEach(function(rgb) {
-          newVal = rgbToFilter(rgb);
+          newVal = rgbToFilter(rgb, opts);
         });
         declaration.value = newVal;
       }
 
       // Remove any preserved variables.
-      var varValues = value.match(varReg);
-      if(varValues && varValues.length > 0) {
-        varValues.forEach(function(varVal) {
-          declaration.remove();
-        });
+      if (opts.cssvars) {
+        var varValues = value.match(varReg);
+        if (varValues && varValues.length > 0) {
+          varValues.forEach(function () {
+            declaration.remove();
+          });
+        }
       }
     });
   };
@@ -41,18 +46,19 @@ module.exports = postcss.plugin('postcss-rgb-filter', function (opts) {
 /**
  * RGB to filter transformer
  * @param rgbString
+ * @param opts
  * @returns {Color}
  */
-function rgbToFilter(rgbString) {
+function rgbToFilter(rgbString, opts) {
   var rgb = rgbString.match(/\d+/g);
   var color = new Color(rgb[0], rgb[1], rgb[2]);
   var solver = new Solver(color);
-  // Solve with loss of less than 5.
   var result = solver.solve();
-  do {
-    result = solver.solve();
-  } while (result.loss > 1);
-
+  if (opts.loss) {
+    do {
+      result = solver.solve();
+    } while (result.loss > opts.loss);
+  }
   return result.filter;
 }
 
